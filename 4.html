@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коммерческое предложение - Как это будет работать</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Subtle background particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: rgba(64, 224, 255, 0.1);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); opacity: 0; }
+            50% { transform: translateY(-80px); opacity: 0.5; }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .page-header {
+            margin-bottom: 3rem;
+            animation: slideInDown 1s ease-out;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #40e0ff, #667eea);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .steps-container {
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2.5rem;
+            position: relative;
+            animation: slideInLeft 0.8s ease-out both;
+        }
+        
+        .step-item:nth-child(1) { animation-delay: 0.5s; }
+        .step-item:nth-child(2) { animation-delay: 0.7s; }
+        .step-item:nth-child(3) { animation-delay: 0.9s; }
+        .step-item:nth-child(4) { animation-delay: 1.1s; }
+        
+        .step-number {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(45deg, #40e0ff, #667eea);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-right: 1.5rem;
+            position: relative;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        .step-number::after {
+            content: '';
+            position: absolute;
+            top: 48px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(64, 224, 255, 0.4), transparent);
+        }
+        
+        .step-item:last-child .step-number::after {
+            display: none;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(64, 224, 255, 0.3);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(64, 224, 255, 0);
+            }
+        }
+        
+        .step-content {
+            flex: 1;
+            padding-top: 0.5rem;
+        }
+        
+        .step-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #e0e0e0;
+            font-weight: 400;
+        }
+        
+        .highlight-text {
+            color: #40e0ff;
+            font-weight: 500;
+        }
+        
+        .flow-accent {
+            position: absolute;
+            top: 25%;
+            right: -100px;
+            width: 150px;
+            height: 150px;
+            opacity: 0.03;
+            animation: rotate 25s linear infinite;
+        }
+        
+        .flow-accent::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #40e0ff;
+            border-radius: 50%;
+            border-style: dashed;
+            animation: counterRotate 15s linear infinite;
+        }
+        
+        .flow-accent::after {
+            content: '';
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 50%;
+            height: 50%;
+            border: 1px solid #667eea;
+            border-radius: 20px;
+            transform: rotate(45deg);
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes counterRotate {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+        
+        @keyframes slideInDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            font-size: 0.9rem;
+            color: #606060;
+            font-weight: 300;
+            animation: fadeIn 1s ease-out 1.5s both;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .step-item {
+                margin-bottom: 2rem;
+            }
+            
+            .step-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                margin-right: 1rem;
+            }
+            
+            .step-number::after {
+                top: 40px;
+                height: 35px;
+            }
+            
+            .step-text {
+                font-size: 1rem;
+            }
+            
+            .flow-accent {
+                display: none;
+            }
+        }
+        
+        /* Minimal carousel nav */
+        .nav-controls {
+            position: fixed;
+            bottom: calc(20px + env(safe-area-inset-bottom));
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+        }
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(64,224,255,0.3);
+            color: #e8faff;
+            text-decoration: none;
+            font-size: 14px;
+            backdrop-filter: blur(8px);
+            transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+        .nav-btn:hover { 
+            background: rgba(64,224,255,0.12); 
+            border-color: rgba(64,224,255,0.5);
+            transform: translateY(-1px);
+        }
+        .nav-btn:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <div class="particles">
+        <div class="particle" style="left: 25%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 45%; animation-delay: -2s;"></div>
+        <div class="particle" style="left: 65%; animation-delay: -4s;"></div>
+        <div class="particle" style="left: 85%; animation-delay: -1s;"></div>
+        <div class="particle" style="left: 35%; top: 30%; animation-delay: -3s;"></div>
+        <div class="particle" style="left: 75%; top: 50%; animation-delay: -5s;"></div>
+        <div class="particle" style="left: 55%; top: 80%; animation-delay: -2.5s;"></div>
+    </div>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1 class="section-title">Как это будет работать</h1>
+        </div>
+        
+        <div class="steps-container">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p class="step-text">
+                        Гость пишет в выбранном канале <span class="highlight-text">(Instagram/Telegram/WhatsApp и т.д.)</span>.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <p class="step-text">
+                        Чат-бот получает сообщение, сверяется с <span class="highlight-text">базой знаний отеля</span> (правила бронирования и отмены, заезд/выезд, поздний чек-аут, питание, SPA, трансфер, парковка, конференц-залы, детская политика, размещение с животными, бухгалтерские документы и т.п.).
+                    </p>
+                </div>
+            </div>
+            
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <p class="step-text">
+                        Формируется <span class="highlight-text">понятный ответ</span>;
+                    </p>
+                </div>
+            </div>
+            
+            <div class="step-item">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <p class="step-text">
+                        В <span class="highlight-text">админ-панели</span> доступна история переписки, статистика и инструменты обновления базы знаний и настроек ответов.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flow-accent"></div>
+        
+        <div class="page-number">
+            04
+        </div>
+        <div class="nav-controls" aria-label="Навигация по страницам">
+            <a class="nav-btn" href="3.html" title="Назад" aria-label="Назад">‹</a>
+            <a class="nav-btn" href="5.html" title="Вперёд" aria-label="Вперёд">›</a>
+        </div>
+    </div>
+</body>
+</html>

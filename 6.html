@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коммерческое предложение - Безопасность и конфиденциальность</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* предотвращаем горизонтальный скролл */
+        html, body { overflow-x: clip; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            /* фолбэк + корректная высота на мобильных */
+            min-height: 100vh;
+            min-height: 100dvh;
+            position: relative;
+        }
+
+        /* Subtle background particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .particle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: rgba(64, 224, 255, 0.1);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); opacity: 0; }
+            50% { transform: translateY(-80px); opacity: 0.5; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            /* фолбэк + корректная высота на мобильных */
+            min-height: 100vh;
+            min-height: 100dvh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            /* обрезаем декоративные элементы, чтобы не раздували ширину */
+            overflow: hidden;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #40e0ff, #667eea);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .security-content {
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        .security-item {
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(64, 224, 255, 0.1);
+            position: relative;
+            animation: slideInLeft 0.8s ease-out both;
+            transition: all 0.3s ease;
+        }
+
+        .security-item:nth-child(1) { animation-delay: 0.5s; }
+        .security-item:nth-child(2) { animation-delay: 0.7s; }
+
+        .security-item:hover {
+            background: rgba(64, 224, 255, 0.03);
+            border-color: rgba(64, 224, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(64, 224, 255, 0.1);
+        }
+
+        .security-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(45deg, #40e0ff, #667eea);
+            border-radius: 2px 0 0 2px;
+            opacity: 0.6;
+        }
+
+        .security-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(45deg, #40e0ff, #667eea);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .security-icon::before {
+            content: '🔒';
+            font-size: 1.5rem;
+            filter: grayscale(1) brightness(2);
+        }
+
+        .security-item:nth-child(2) .security-icon::before {
+            content: '📝';
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(64, 224, 255, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 8px rgba(64, 224, 255, 0);
+            }
+        }
+
+        .security-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #e0e0e0;
+            font-weight: 400;
+            padding-left: 1rem;
+        }
+
+        .highlight-text {
+            color: #40e0ff;
+            font-weight: 500;
+        }
+
+        .shield-accent {
+            position: absolute;
+            top: 30%;
+            right: -80px; /* останется декоративный вылет, но теперь он клипуется контейнером */
+            width: 120px;
+            height: 120px;
+            opacity: 0.04;
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+
+        .shield-accent::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #40e0ff;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .shield-accent::after {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 30%;
+            width: 40%;
+            height: 40%;
+            border: 1px solid #667eea;
+            border-radius: 50%;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideInDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            font-size: 0.9rem;
+            color: #606060;
+            font-weight: 300;
+            animation: fadeIn 1s ease-out 1.5s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                /* вместо auto — заполняем экран; используем dvh для мобильных */
+                min-height: 100vh;
+                min-height: 100dvh;
+                justify-content: flex-start;
+                padding: 3rem 1rem 4rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+                line-height: 1.2;
+            }
+
+            .security-item {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .security-text {
+                font-size: 1rem;
+                padding-left: 0.5rem;
+            }
+
+            .shield-accent {
+                display: none; /* на мобильных полностью скрываем */
+            }
+        }
+
+        /* Minimal carousel nav */
+        .nav-controls {
+            position: fixed;
+            bottom: calc(20px + env(safe-area-inset-bottom));
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+        }
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(64,224,255,0.3);
+            color: #e8faff;
+            text-decoration: none;
+            font-size: 14px;
+            backdrop-filter: blur(8px);
+            transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+        .nav-btn:hover {
+            background: rgba(64,224,255,0.12);
+            border-color: rgba(64,224,255,0.5);
+            transform: translateY(-1px);
+        }
+        .nav-btn:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <div class="particles">
+        <div class="particle" style="left: 20%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: -2s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: -4s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: -1s;"></div>
+        <div class="particle" style="left: 30%; top: 40%; animation-delay: -3s;"></div>
+        <div class="particle" style="left: 70%; top: 20%; animation-delay: -5s;"></div>
+        <div class="particle" style="left: 50%; top: 70%; animation-delay: -2.5s;"></div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1 class="section-title">Безопасность и конфиденциальность</h1>
+        </div>
+
+        <div class="security-content">
+            <div class="security-item">
+                <div class="security-icon"></div>
+                <p class="security-text">
+                    <span class="highlight-text">Защита персональных данных гостей:</span> шифрование, разграничение доступа, аудит.
+                </p>
+            </div>
+
+            <div class="security-item">
+                <div class="security-icon"></div>
+                <p class="security-text">
+                    Настройка сроков хранения истории переписки в соответствии с <span class="highlight-text">политикой отеля</span>.
+                </p>
+            </div>
+        </div>
+
+        <div class="shield-accent"></div>
+
+        <div class="page-number">
+            06
+        </div>
+        <div class="nav-controls" aria-label="Навигация по страницам">
+            <a class="nav-btn" href="5.html" title="Назад" aria-label="Назад">‹</a>
+            <a class="nav-btn" href="7.html" title="Вперёд" aria-label="Вперёд">›</a>
+        </div>
+    </div>
+</body>
+</html>

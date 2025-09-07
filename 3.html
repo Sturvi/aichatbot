@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коммерческое предложение - Ключевые преимущества</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Subtle background particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: rgba(64, 224, 255, 0.1);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); opacity: 0; }
+            50% { transform: translateY(-80px); opacity: 0.5; }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .page-header {
+            margin-bottom: 3rem;
+            animation: slideInDown 1s ease-out;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #40e0ff, #667eea);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .benefits-list {
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+        
+        .benefit-item {
+            margin-bottom: 2.5rem;
+            padding-left: 3rem;
+            position: relative;
+            animation: slideInLeft 0.8s ease-out both;
+        }
+        
+        .benefit-item:nth-child(1) { animation-delay: 0.5s; }
+        .benefit-item:nth-child(2) { animation-delay: 0.7s; }
+        .benefit-item:nth-child(3) { animation-delay: 0.9s; }
+        .benefit-item:nth-child(4) { animation-delay: 1.1s; }
+        
+        .benefit-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(45deg, #40e0ff, #667eea);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .benefit-item::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 1.2rem;
+            width: 1px;
+            height: calc(100% - 0.7rem);
+            background: linear-gradient(to bottom, rgba(64, 224, 255, 0.3), transparent);
+        }
+        
+        .benefit-item:last-child::after {
+            display: none;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 0 0 0 rgba(64, 224, 255, 0.4);
+            }
+            50% { 
+                transform: scale(1.1); 
+                box-shadow: 0 0 0 8px rgba(64, 224, 255, 0);
+            }
+        }
+        
+        .benefit-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #e0e0e0;
+            font-weight: 400;
+        }
+        
+        .highlight-accent {
+            position: absolute;
+            top: 30%;
+            right: -80px;
+            width: 120px;
+            height: 120px;
+            opacity: 0.04;
+            animation: rotate 20s linear infinite;
+        }
+        
+        .highlight-accent::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #40e0ff;
+            border-radius: 50%;
+            border-style: dashed;
+        }
+        
+        .highlight-accent::after {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 30%;
+            width: 40%;
+            height: 40%;
+            border: 1px solid #667eea;
+            border-radius: 10px;
+            transform: rotate(45deg);
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes slideInDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            font-size: 0.9rem;
+            color: #606060;
+            font-weight: 300;
+            animation: fadeIn 1s ease-out 1.5s both;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .benefit-item {
+                padding-left: 2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .benefit-text {
+                font-size: 1rem;
+            }
+            
+            .highlight-accent {
+                display: none;
+            }
+        }
+        
+        /* Minimal carousel nav */
+        .nav-controls {
+            position: fixed;
+            bottom: calc(20px + env(safe-area-inset-bottom));
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+        }
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(64,224,255,0.3);
+            color: #e8faff;
+            text-decoration: none;
+            font-size: 14px;
+            backdrop-filter: blur(8px);
+            transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+        .nav-btn:hover { 
+            background: rgba(64,224,255,0.12); 
+            border-color: rgba(64,224,255,0.5);
+            transform: translateY(-1px);
+        }
+        .nav-btn:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <div class="particles">
+        <div class="particle" style="left: 20%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: -2s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: -4s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: -1s;"></div>
+        <div class="particle" style="left: 30%; top: 40%; animation-delay: -3s;"></div>
+        <div class="particle" style="left: 70%; top: 20%; animation-delay: -5s;"></div>
+        <div class="particle" style="left: 50%; top: 70%; animation-delay: -2.5s;"></div>
+    </div>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1 class="section-title">Ключевые преимущества</h1>
+        </div>
+        
+        <div class="benefits-list">
+            <div class="benefit-item">
+                <p class="benefit-text">
+                    <strong>Быстрые ответы 24/7.</strong> Реакция в течение секунд, включая ночное время и пиковые периоды. Это снижает затраты на операторов и приводит к значительной экономии.
+                </p>
+            </div>
+            
+            <div class="benefit-item">
+                <p class="benefit-text">
+                    <strong>Снижение нагрузки на команду.</strong> Типовые вопросы закрываются автоматически; сложные кейсы переходят сотруднику.
+                </p>
+            </div>
+            
+            <div class="benefit-item">
+                <p class="benefit-text">
+                    <strong>Рост конверсии обращений в бронирование.</strong> Подсказки по тарифам и категориям номеров, услуги и акции, быстрые ссылки на бронирование/оплату (при наличии).
+                </p>
+            </div>
+            
+            <div class="benefit-item">
+                <p class="benefit-text">
+                    <strong>Прозрачная аналитика.</strong> Полная картина тем обращений, скорости ответов и удовлетворённости.
+                </p>
+            </div>
+        </div>
+        
+        <div class="highlight-accent"></div>
+        
+        <div class="page-number">
+            03
+        </div>
+        <div class="nav-controls" aria-label="Навигация по страницам">
+            <a class="nav-btn" href="2.html" title="Назад" aria-label="Назад">‹</a>
+            <a class="nav-btn" href="4.html" title="Вперёд" aria-label="Вперёд">›</a>
+        </div>
+    </div>
+</body>
+</html>

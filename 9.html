@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коммерческое предложение - Порядок выполнения работ и сроки</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Subtle background particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: rgba(64, 224, 255, 0.1);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); opacity: 0; }
+            50% { transform: translateY(-80px); opacity: 0.5; }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .page-header {
+            margin-bottom: 3rem;
+            animation: slideInDown 1s ease-out;
+        }
+        
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #40e0ff, #667eea);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+            line-height: 1.2;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .timeline-container {
+            position: relative;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 30px;
+            top: 80px;
+            width: 2px;
+            height: calc(100% - 120px);
+            background: linear-gradient(to bottom, #40e0ff, rgba(64, 224, 255, 0.3), transparent);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 80px;
+            animation: slideInLeft 0.8s ease-out both;
+        }
+        
+        .timeline-item:nth-child(1) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.7s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.9s; }
+        .timeline-item:nth-child(4) { animation-delay: 1.1s; }
+        .timeline-item:nth-child(5) { animation-delay: 1.3s; }
+        
+        .timeline-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #40e0ff, #667eea);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            animation: pulse 3s ease-in-out infinite;
+            z-index: 3;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(64, 224, 255, 0.3);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 0 12px rgba(64, 224, 255, 0);
+            }
+        }
+        
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(64, 224, 255, 0.1);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .timeline-content:hover {
+            background: rgba(64, 224, 255, 0.03);
+            border-color: rgba(64, 224, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(64, 224, 255, 0.1);
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 20px solid rgba(255, 255, 255, 0.02);
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #40e0ff;
+            margin-bottom: 1rem;
+        }
+        
+        .step-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #e0e0e0;
+        }
+        
+        .highlight-text {
+            color: #40e0ff;
+            font-weight: 500;
+        }
+        
+        .flow-accent {
+            position: absolute;
+            top: 25%;
+            right: -100px;
+            width: 150px;
+            height: 150px;
+            opacity: 0.03;
+            animation: rotate 30s linear infinite;
+        }
+        
+        .flow-accent::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #40e0ff;
+            border-radius: 50%;
+            border-style: dashed;
+            animation: counterRotate 20s linear infinite;
+        }
+        
+        .flow-accent::after {
+            content: '';
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 50%;
+            height: 50%;
+            border: 1px solid #667eea;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes counterRotate {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+        
+        @keyframes slideInDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            font-size: 0.9rem;
+            color: #606060;
+            font-weight: 300;
+            animation: fadeIn 1s ease-out 1.5s both;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+            
+            .timeline-item {
+                padding-left: 60px;
+                margin-bottom: 2.5rem;
+            }
+            
+            .timeline-number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .timeline-line {
+                left: 25px;
+                top: 70px;
+                height: calc(100% - 100px);
+            }
+            
+            .timeline-content {
+                padding: 1.5rem;
+            }
+            
+            .timeline-content::before {
+                left: -15px;
+                border-right-width: 15px;
+            }
+            
+            .step-title {
+                font-size: 1.1rem;
+            }
+            
+            .step-description {
+                font-size: 0.95rem;
+            }
+            
+            .flow-accent {
+                display: none;
+            }
+        }
+        
+        /* Minimal carousel nav */
+        .nav-controls {
+            position: fixed;
+            bottom: calc(20px + env(safe-area-inset-bottom));
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+        }
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(64,224,255,0.3);
+            color: #e8faff;
+            text-decoration: none;
+            font-size: 14px;
+            backdrop-filter: blur(8px);
+            transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+        .nav-btn:hover { 
+            background: rgba(64,224,255,0.12); 
+            border-color: rgba(64,224,255,0.5);
+            transform: translateY(-1px);
+        }
+        .nav-btn:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <div class="particles">
+        <div class="particle" style="left: 20%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: -2s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: -4s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: -1s;"></div>
+        <div class="particle" style="left: 30%; top: 40%; animation-delay: -3s;"></div>
+        <div class="particle" style="left: 70%; top: 20%; animation-delay: -5s;"></div>
+        <div class="particle" style="left: 50%; top: 70%; animation-delay: -2.5s;"></div>
+    </div>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1 class="section-title">Порядок выполнения работ и сроки</h1>
+        </div>
+        
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            
+            <div class="timeline-item">
+                <div class="timeline-number">1</div>
+                <div class="timeline-content">
+                    <div class="step-title">Подготовка (до старта)</div>
+                    <div class="step-description">
+                        Предоставляется <span class="highlight-text">первичная база знаний</span> и список из 50–100 типовых вопросов для калибровки качества и тестирования.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-number">2</div>
+                <div class="timeline-content">
+                    <div class="step-title">Старт работ</div>
+                    <div class="step-description">
+                        Вносится <span class="highlight-text">аванс 500 манат</span>. Определяется первый подключаемый сервис (канал).
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-number">3</div>
+                <div class="timeline-content">
+                    <div class="step-title">Этап A — Core (2–3 недели)</div>
+                    <div class="step-description">
+                        Разрабатывается Core. Предоставляется простой интерфейс для тестирования. При подтверждении качества — переход к следующему этапу.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-number">4</div>
+                <div class="timeline-content">
+                    <div class="step-title">Этап B — Админ‑панель (2–3 недели) + 1‑й сервис (2–4 недели)</div>
+                    <div class="step-description">
+                        Разрабатывается админ‑панель и настраивается первый выбранный сервис. Сдаётся результат: <span class="highlight-text">Core + Admin Panel + 1 сервис</span>. Поступает оставшаяся оплата за текущий объём.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-number">5</div>
+                <div class="timeline-content">
+                    <div class="step-title">Этап C — Остальные сервисы</div>
+                    <div class="step-description">
+                        Оставшиеся сервисы подключаются по очереди, каждый в срок <span class="highlight-text">2–4 недели</span>. Запуск следующего сервиса осуществляется после завершения и оплаты предыдущего.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flow-accent"></div>
+        
+        <div class="page-number">
+            09
+        </div>
+        <div class="nav-controls" aria-label="Навигация по страницам">
+            <a class="nav-btn" href="8.html" title="Назад" aria-label="Назад">‹</a>
+            <a class="nav-btn" href="10.html" title="Вперёд" aria-label="Вперёд">›</a>
+        </div>
+    </div>
+</body>
+</html>
